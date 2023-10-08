@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full h-16 md:h-20 flex justify-between items-center px-8">
+      <div className="w-full h-16 md:h-20 flex justify-between items-center px-8 border-b">
         <div className=" flex items-center gap-4  font-bold text-gray-600">
           <GiHamburgerMenu onClick={() => setNav(true)} className="md:hidden text-xl md:text-2xl cursor-pointer" />
           <h1 className="text-2xl text-gray-700">sneakers</h1>
@@ -37,7 +37,7 @@ const Navbar = () => {
       {/* Overlay  */}
       { nav && <div  className="fixed md:hidden top-0 left-0 w-full h-screen bg-black/70" />}
       {/* Nav Menu */}
-      <div className={ nav ? "fixed md:hidden top-0 left-0 h-screen w-[60%] sm:w-[40%] bg-white p-5  ease-in duration-300" : "fixed md:hidden top-0 left-[-500px] h-screen w-[60%] bg-white p-5 ease-in duration-300"}>
+      <div className={ nav ? "fixed md:hidden top-0 left-0 h-screen w-[60%] sm:w-[40%] bg-white p-5  ease-in duration-300 overflow-scroll" : "fixed md:hidden top-0 left-[-500px] h-screen w-[60%] bg-white p-5 ease-in duration-300 overflow-scroll"}>
         <div onClick={() => setNav(false)} className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-300 hover:text-white cursor-pointer transform duration-300">
           <AiOutlineClose/>
         </div>

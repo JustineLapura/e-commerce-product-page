@@ -7,6 +7,9 @@ export default function Home() {
       <div className="w-full h-full max-w-[1000px] mx-auto">
         {/* Navbar  */}
         <Navbar />
+
+        {/* Content  */}
+        
       </div>
     </main>
   );
