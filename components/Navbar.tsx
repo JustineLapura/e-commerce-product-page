@@ -8,7 +8,7 @@ import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import React, {useState} from "react";
 
 const Navbar = () => {
-  const [nav, setNav] = useState<boolean>()
+  const [nav, setNav] = useState<boolean>(false)
 
   return (
     <>
@@ -48,7 +48,7 @@ const Navbar = () => {
             className="w-12 rounded-full cursor-pointer hover:scale-105 duration-300"
           />
           <h1 className="font-bold text-xl text-gray-700">
-            Jahz10's <br />
+            Jahz10 <br />
             sneakers
           </h1>
         </div>
