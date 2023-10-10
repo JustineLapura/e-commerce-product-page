@@ -30,7 +30,7 @@ export default function Home() {
             </h1>
             <p className="text-gray-500 leading-7 mt-4">
               These low-profile sneakers are your perfect casual wear companion.
-              Featuring a durable rubber outer sole, they'll withstand
+              Featuring a durable rubber outer sole, they&rsquo;ll withstand
               everything the the weather can offer.
             </p>
             <div className="flex justify-between items-center mt-6">
