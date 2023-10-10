@@ -18,8 +18,8 @@ export default function Home() {
         <div className="w-full h-full lg:flex justify-center items-center gap-20 pt-16 md:py-32">
           {/* Image  */}
           <div className="">
-            <Image src={img1} alt="shoe image 1" className="rounded-xl" />
-            <div className="flex justify-between items-center mt-8">
+            <Image src={img1} alt="shoe image 1" className="lg:rounded-xl" />
+            <div className="hidden lg:flex justify-between items-center mt-8">
               <Image src={img1} alt="shoe image 1" className="w-20 rounded-xl"/>
               <Image src={img2} alt="shoe image 2" className="w-20 rounded-xl"/>
               <Image src={img3} alt="shoe image 3" className="w-20 rounded-xl"/>
