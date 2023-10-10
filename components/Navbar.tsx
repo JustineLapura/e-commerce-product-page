@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full h-16 md:h-20 flex justify-between items-center px-8 border-b">
+      <div className="fixed max-w-[1000px] mx-auto bg-white w-full h-16 md:h-20 flex justify-between items-center px-8 lg:px-0 border-b">
         <div className=" flex items-center gap-4  font-bold text-gray-600">
           <GiHamburgerMenu onClick={() => setNav(true)} className="md:hidden text-xl md:text-2xl cursor-pointer" />
           <h1 className="text-2xl text-gray-700">sneakers</h1>
@@ -24,7 +24,7 @@ const Navbar = () => {
             <li>Contact</li>
           </ul>
         </div>
-        <div className="flex items-center gap-4 md:gap-8 text-2xl font-bold text-gray-600">
+        <div className="flex items-center gap-4 md:gap-8 text-2xl font-bold text-gray-600 z-20">
           <AiOutlineShoppingCart />
           <Image
             src={profile}
