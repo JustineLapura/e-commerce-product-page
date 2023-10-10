@@ -1,12 +1,55 @@
+"use client";
+
 import Navbar from "@/components/Navbar";
 import img1 from "/public/images/image-product-1.jpg";
 import img2 from "/public/images/image-product-2.jpg";
 import img3 from "/public/images/image-product-3.jpg";
 import img4 from "/public/images/image-product-4.jpg";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { useEffect, useState } from "react";
+
+const slides = [
+  {
+    img: img1,
+  },
+  {
+    img: img2,
+  },
+  {
+    img: img3,
+  },
+  {
+    img: img4,
+  },
+];
+
+interface Slide {
+  img: StaticImageData;
+}
 
 export default function Home() {
+  const [curentIndex, setCurrentindex] = useState<number>(0);
+  const [slidesModalOpen, setSlidesModalOpen] = useState<boolean>(false);
+
+  const prevSlide = () => {
+    const isFirstSlide = curentIndex === 0;
+    const newIndex = isFirstSlide ? slides.length - 1 : curentIndex - 1;
+    setCurrentindex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = curentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : curentIndex + 1;
+    setCurrentindex(newIndex);
+  };
+
+  const gotoSlideIndex = (index: number) => {
+    setCurrentindex(index);
+    setSlidesModalOpen(true);
+  };
+
   return (
     <main className="w-full h-full bg-white">
       {/* Container */}
@@ -18,12 +61,38 @@ export default function Home() {
         <div className="w-full h-full lg:flex justify-center items-center gap-20 pt-16 md:py-32">
           {/* Image  */}
           <div className="">
-            <Image src={img1} alt="shoe image 1" className="lg:rounded-xl" />
+            <div className="relative w-full">
+              <Image
+                src={slides[curentIndex].img}
+                alt="shoe image 1"
+                className="lg:hidden lg:rounded-xl"
+              />
+              <Image
+                src={slides[0].img}
+                alt="shoe image 1"
+                className="hidden lg:block lg:rounded-xl"
+              />
+              <BsChevronCompactLeft
+                size={30}
+                className="w-10 h-10 lg:hidden absolute top-1/2 left-5 text-gray-900 font-black p-2 bg-white rounded-full cursor-pointer hover:bg-gray-200 hover:scale-105 duration-200"
+                onClick={prevSlide}
+              />
+              <BsChevronCompactRight
+                size={30}
+                className="w-10 h-10 lg:hidden absolute top-1/2 right-5 text-gray-900 font-black p-2 bg-white rounded-full cursor-pointer hover:bg-gray-200 hover:scale-105 duration-200"
+                onClick={nextSlide}
+              />
+            </div>
             <div className="hidden lg:flex justify-between items-center mt-8">
-              <Image src={img1} alt="shoe image 1" className="w-20 rounded-xl"/>
-              <Image src={img2} alt="shoe image 2" className="w-20 rounded-xl"/>
-              <Image src={img3} alt="shoe image 3" className="w-20 rounded-xl"/>
-              <Image src={img4} alt="shoe image 4" className="w-20 rounded-xl"/>
+              {slides.map((slide, index) => (
+                <Image
+                  key={index}
+                  src={slide.img}
+                  alt={`shoe image ${index + 1}`}
+                  className="w-20 rounded-xl cursor-pointer hover:scale-105 duration-200"
+                  onClick={() => gotoSlideIndex(index)}
+                />
+              ))}
             </div>
           </div>
           {/* Product Details */}
@@ -60,6 +129,43 @@ export default function Home() {
                 <AiOutlineShoppingCart size={20} /> Add to cart
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* overlay  */}
+        {slidesModalOpen && (
+          <div className="fixed hidden lg:block top-0 left-0 w-full h-screen bg-black/60 z-20" />
+        )}
+
+        {/* Slides Modal  */}
+        <div
+          className={
+            slidesModalOpen
+              ? "w-[400px] h-[400px] hidden lg:block rounded-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform z-30 pt-5 ease-in duration-300"
+              : "w-[400px] h-[400px] rounded-xl fixed top-[-100%] left-1/2 -translate-x-1/2 -translate-y-1/2 transform z-30 pt-5 ease-in duration-300"
+          }
+        >
+          <div className="relative w-full h-full">
+            <Image
+              src={slides[curentIndex].img}
+              alt="shoe image 1"
+              className="w-full h-full lg:rounded-xl"
+            />
+            <BsChevronCompactLeft
+              size={30}
+              className="w-10 h-10 absolute top-1/2 -left-5 text-gray-900 font-black p-2 bg-white rounded-full cursor-pointer hover:bg-gray-200 hover:scale-105 duration-200"
+              onClick={prevSlide}
+            />
+            <BsChevronCompactRight
+              size={30}
+              className="w-10 h-10 absolute top-1/2 -right-5 text-gray-900 font-black p-2 bg-white rounded-full cursor-pointer hover:bg-gray-200 hover:scale-105 duration-200"
+              onClick={nextSlide}
+            />
+            <AiOutlineClose
+              onClick={() => setSlidesModalOpen(false)}
+              size={20}
+              className="absolute -top-8 right-0 font-bold text-white cursor-pointer hover:scale-125 duration-200"
+            />
           </div>
         </div>
       </div>
