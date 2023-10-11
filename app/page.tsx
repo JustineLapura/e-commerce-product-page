@@ -188,7 +188,7 @@ export default function Home() {
           className={
             slidesModalOpen
               ? "w-[400px] h-[400px] hidden lg:block rounded-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform z-30 pt-5 ease-in duration-300"
-              : "w-[400px] h-[400px] rounded-xl fixed top-[-100%] left-1/2 -translate-x-1/2 -translate-y-1/2 transform z-30 pt-5 ease-in duration-300"
+              : "w-[400px] h-[400px] rounded-xl fixed top-[-150%] left-1/2 -translate-x-1/2 -translate-y-1/2 transform z-30 pt-5 ease-in duration-300"
           }
         >
           <div className="relative w-full h-full">

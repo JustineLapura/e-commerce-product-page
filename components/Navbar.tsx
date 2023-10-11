@@ -85,7 +85,7 @@ const Navbar = ({
               {cartBadgeCount > 0 ? cartItemCount : ""}
             </div>
             {cartModal && (
-              <div className="fixed w-[95%] sm:w-[70%] md:w-[400px] h-[47%] top-[38%] lg:top-[33%] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border">
+              <div className="fixed w-[95%] sm:w-[70%] md:w-[400px] min-h-[300px] h-[47%] top-[220px] lg:top-[228px] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border">
                 <div
                   onClick={closeCartModal}
                   className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-300 hover:text-white cursor-pointer transform duration-300 "
@@ -96,7 +96,7 @@ const Navbar = ({
                 <hr className="shadow" />
                 <div className="w-full m-5">
                   {cartItemCount > 0 ? (
-                    <>
+                    <div className="w-full h-full flex flex-col justify-between gap-6 sm:gap-0">
                       <div className="w-full h-[40%] flex justify-between items-center gap-2">
                         <Image
                           src={img1}
@@ -123,7 +123,7 @@ const Navbar = ({
                       <button onClick={handleOrder} className="w-[90%] py-3 rounded-xl bg-orange-500 mt-6 text-white text-sm font-semibold">
                         Checkout
                       </button>
-                    </>
+                    </div>
                   ) : (
                     <div className="w-full h-full mt-20 flex justify-center items-center">
                       <h1 className="text-gray-500 me-10">Your cart is empty</h1>
