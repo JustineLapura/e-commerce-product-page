@@ -208,7 +208,7 @@ export default function Home() {
         {/* added to cart modal  */}
         {addedToCart && (
           <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl">
-            item added to your cart
+            item has been added
           </div>
         )}
       </div>
