@@ -30,8 +30,31 @@ interface Slide {
 }
 
 export default function Home() {
+  const [itemCount, setItemCount] = useState<number>(0);
+  const [cartCount, setCartCount] = useState<number>(0);
+  const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [curentIndex, setCurrentindex] = useState<number>(0);
   const [slidesModalOpen, setSlidesModalOpen] = useState<boolean>(false);
+
+  const addToCart = () => {
+    setCartCount((prevCount) => prevCount + 1);
+    setAddedToCart(true);
+
+    // Set addedToCart to false after 2 seconds
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 2000); // 2000 milliseconds = 2 seconds
+  };
+
+  const addCount = () => {
+    setItemCount((prevCount) => prevCount + 1);
+  };
+
+  const minusCount = () => {
+    if (itemCount !== 0) {
+      setItemCount((prevCount) => prevCount - 1);
+    }
+  };
 
   const prevSlide = () => {
     const isFirstSlide = curentIndex === 0;
@@ -55,7 +78,7 @@ export default function Home() {
       {/* Container */}
       <div className="w-full h-full min-h-screen max-w-[1000px] mx-auto">
         {/* Navbar  */}
-        <Navbar />
+        <Navbar cartCount={cartCount} />
 
         {/* Content  */}
         <div className="w-full h-full lg:flex justify-center items-center gap-20 pt-16 md:py-32">
@@ -121,11 +144,24 @@ export default function Home() {
             </div>
             <div className="lg:flex items-center gap-6">
               <div className="w-full flex justify-between items-center mt-8 lg:mt-4 text-orange-600 text-2xl font-bold rounded-xl bg-gray-100 py-4 lg:py-2 px-6">
-                <p>-</p>
-                <p className="text-lg text-gray-900">0</p>
-                <p>+</p>
+                <p
+                  onClick={minusCount}
+                  className="hover:scale-125 duration-200 cursor-pointer"
+                >
+                  -
+                </p>
+                <p className="text-lg text-gray-900">{itemCount}</p>
+                <p
+                  onClick={addCount}
+                  className="hover:scale-125 duration-200 cursor-pointer"
+                >
+                  +
+                </p>
               </div>
-              <button className="w-full flex justify-center items-center gap-4 py-4 lg:py-2 mt-4 rounded-xl bg-orange-500 text-white font-bold ">
+              <button
+                onClick={addToCart}
+                className="w-full flex justify-center items-center gap-4 py-4 lg:py-2 mt-4 rounded-xl bg-orange-500 text-white font-bold hover:scale-105 duration-200 active:bg-orange-600"
+              >
                 <AiOutlineShoppingCart size={20} /> Add to cart
               </button>
             </div>
@@ -168,6 +204,13 @@ export default function Home() {
             />
           </div>
         </div>
+
+        {/* added to cart modal  */}
+        {addedToCart && (
+          <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl">
+            item added to your cart
+          </div>
+        )}
       </div>
     </main>
   );
