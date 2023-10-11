@@ -1,18 +1,56 @@
 "use client";
 
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
+import img1 from "/public/images/image-product-1.jpg";
 import profile from "/public/profile.jpg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
 
 interface NavbarProps {
-  cartCount: number;
+  cartItemCount: number;
+  cartBadgeCount: number;
+  setCartBadgeCount: Dispatch<SetStateAction<number>>;
+  setCartItemCount: Dispatch<SetStateAction<number>>;
 }
 
-import React, { useState } from "react";
-
-const Navbar = ({ cartCount }: NavbarProps) => {
+const Navbar = ({
+  cartItemCount,
+  cartBadgeCount,
+  setCartBadgeCount,
+  setCartItemCount,
+}: NavbarProps) => {
   const [nav, setNav] = useState<boolean>(false);
+  const [cartModal, setCartModal] = useState<boolean>(false);
+  const [hasOrdered, setHasOrdered] = useState<boolean>(false);
+
+  const handleOrder = () => {
+    setCartBadgeCount(0)
+    setCartItemCount(0)
+    setHasOrdered(true);
+    // Set HassetHasOrdered to false after 2 seconds
+    setTimeout(() => {
+      setHasOrdered(false);
+    }, 2000); // 2000 milliseconds = 2 seconds
+  }
+
+  console.log(hasOrdered)
+
+  const openCartModal = () => {
+    setCartModal(true);
+    setCartBadgeCount(0);
+  };
+
+  const closeCartModal = () => {
+    setCartModal(false);
+    setCartBadgeCount(0);
+  };
+
+  const deleteCartItems = () => {
+    setCartItemCount(0);
+    setCartBadgeCount(0);
+  };
 
   return (
     <>
@@ -33,10 +71,67 @@ const Navbar = ({ cartCount }: NavbarProps) => {
         </div>
         <div className="flex items-center gap-4 md:gap-8 text-2xl font-bold text-gray-600 z-20">
           <div className="relative">
-            <AiOutlineShoppingCart />
-              <div className={cartCount > 0 ? "w-5 h-5 absolute -top-2.5 -right-2.5 text-xs flex justify-center items-center text-white p-1 rounded-full bg-red-500" : ""}>
-                {cartCount > 0 ? cartCount : ""}
+            <AiOutlineShoppingCart
+              className="cursor-pointer hover:scale-110 duration-200"
+              onClick={openCartModal}
+            />
+            <div
+              className={
+                cartBadgeCount > 0
+                  ? "w-5 h-5 absolute -top-2.5 -right-2.5 text-xs flex justify-center items-center text-white p-1 rounded-full bg-red-500"
+                  : ""
+              }
+            >
+              {cartBadgeCount > 0 ? cartItemCount : ""}
+            </div>
+            {cartModal && (
+              <div className="fixed w-[95%] sm:w-[70%] md:w-[400px] h-[47%] top-[38%] lg:top-[33%] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border">
+                <div
+                  onClick={closeCartModal}
+                  className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-300 hover:text-white cursor-pointer transform duration-300 "
+                >
+                  <AiOutlineClose />
+                </div>
+                <h1 className="m-5 font-bold text-gray-900">Cart</h1>
+                <hr className="shadow" />
+                <div className="w-full m-5">
+                  {cartItemCount > 0 ? (
+                    <>
+                      <div className="w-full h-[40%] flex justify-between items-center gap-2">
+                        <Image
+                          src={img1}
+                          alt="shoe image 1"
+                          className="w-1/5 rounded-xl"
+                        />
+                        <div className="flex w-4/5 justify-around items-center text-sm sm:text-base">
+                          <div>
+                            <h1>Fall Limited Edition Sneakers</h1>
+                            <p>
+                              $125.00 x {cartItemCount + " "}
+                              <span className="font-bold text-gray-900">
+                                ${cartItemCount * 375}.00
+                              </span>
+                            </p>
+                          </div>
+                          <BsFillTrashFill
+                            onClick={deleteCartItems}
+                            size={25}
+                            className="w-1/5 me-2 cursor-pointer hover:scale-105 text-gray-500 duration-200 hover:text-gray-600"
+                          />
+                        </div>
+                      </div>
+                      <button onClick={handleOrder} className="w-[90%] py-3 rounded-xl bg-orange-500 mt-6 text-white text-sm font-semibold">
+                        Checkout
+                      </button>
+                    </>
+                  ) : (
+                    <div className="w-full h-full mt-20 flex justify-center items-center">
+                      <h1 className="text-gray-500 me-10">Your cart is empty</h1>
+                    </div>
+                  )}
+                </div>
               </div>
+            )}
           </div>
           <Image
             src={profile}
@@ -83,6 +178,13 @@ const Navbar = ({ cartCount }: NavbarProps) => {
           <li className="cursor-pointer hover:animate-pulse">Contact</li>
         </ul>
       </div>
+
+      {/* added to cart modal  */}
+      {hasOrdered && (
+          <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/70 top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">
+            Order Successful
+          </div>
+        )}
     </>
   );
 };

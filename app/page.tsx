@@ -8,7 +8,7 @@ import img4 from "/public/images/image-product-4.jpg";
 import Image, { StaticImageData } from "next/image";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const slides = [
   {
@@ -31,15 +31,25 @@ interface Slide {
 
 export default function Home() {
   const [itemCount, setItemCount] = useState<number>(0);
-  const [cartCount, setCartCount] = useState<number>(0);
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
+  const [cartBadgeCount, setCartBadgeCount] = useState<number>(0);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [curentIndex, setCurrentindex] = useState<number>(0);
   const [slidesModalOpen, setSlidesModalOpen] = useState<boolean>(false);
 
-  const addToCart = () => {
-    setCartCount((prevCount) => prevCount + 1);
-    setAddedToCart(true);
+  // console.log(cartItemCount)
 
+  const addToCart = () => {
+    setCartBadgeCount((prevCount) => prevCount + 1);
+
+    if (itemCount !== 0) {
+      setCartItemCount((prevCount) => (prevCount += itemCount));
+      setItemCount(0);
+    } else {
+      setCartItemCount((prevCount) => prevCount + 1);
+    }
+
+    setAddedToCart(true);
     // Set addedToCart to false after 2 seconds
     setTimeout(() => {
       setAddedToCart(false);
@@ -78,7 +88,7 @@ export default function Home() {
       {/* Container */}
       <div className="w-full h-full min-h-screen max-w-[1000px] mx-auto">
         {/* Navbar  */}
-        <Navbar cartCount={cartCount} />
+        <Navbar cartItemCount={cartItemCount} cartBadgeCount={cartBadgeCount} setCartBadgeCount={setCartBadgeCount} setCartItemCount={setCartItemCount} />
 
         {/* Content  */}
         <div className="w-full h-full lg:flex justify-center items-center gap-20 pt-16 md:py-32">
