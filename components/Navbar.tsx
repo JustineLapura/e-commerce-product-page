@@ -7,6 +7,7 @@ import profile from "/public/profile.jpg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
+import Link from "next/link";
 
 interface NavbarProps {
   cartItemCount: number;
@@ -26,16 +27,16 @@ const Navbar = ({
   const [hasOrdered, setHasOrdered] = useState<boolean>(false);
 
   const handleOrder = () => {
-    setCartBadgeCount(0)
-    setCartItemCount(0)
+    setCartBadgeCount(0);
+    setCartItemCount(0);
     setHasOrdered(true);
     // Set HassetHasOrdered to false after 2 seconds
     setTimeout(() => {
       setHasOrdered(false);
     }, 2000); // 2000 milliseconds = 2 seconds
-  }
+  };
 
-  console.log(hasOrdered)
+  console.log(hasOrdered);
 
   const openCartModal = () => {
     setCartModal(true);
@@ -120,24 +121,31 @@ const Navbar = ({
                           />
                         </div>
                       </div>
-                      <button onClick={handleOrder} className="w-[90%] py-3 rounded-xl bg-orange-500 mt-6 text-white text-sm font-semibold">
+                      <button
+                        onClick={handleOrder}
+                        className="w-[90%] py-3 rounded-xl bg-orange-500 mt-6 text-white text-sm font-semibold"
+                      >
                         Checkout
                       </button>
                     </div>
                   ) : (
                     <div className="w-full h-full mt-20 flex justify-center items-center">
-                      <h1 className="text-gray-500 me-10">Your cart is empty</h1>
+                      <h1 className="text-gray-500 me-10">
+                        Your cart is empty
+                      </h1>
                     </div>
                   )}
                 </div>
               </div>
             )}
           </div>
-          <Image
-            src={profile}
-            alt="profile image"
-            className="w-8 rounded-full"
-          />
+          <Link href="https://justinelapura.vercel.app/">
+            <Image
+              src={profile}
+              alt="profile image"
+              className="w-8 rounded-full"
+            />
+          </Link>
         </div>
       </div>
 
@@ -159,18 +167,17 @@ const Navbar = ({
         >
           <AiOutlineClose />
         </div>
-        <div className="flex items-center gap-4">
-          <Image
-            src={profile}
-            alt="profile image"
-            className="w-12 rounded-full cursor-pointer hover:scale-105 duration-300"
-          />
-          <h1 className="font-bold text-xl text-gray-700">
-            Jahz10 <br />
-            sneakers
-          </h1>
+        <div className="absolute top-3 left-3 flex items-center gap-4">
+          <Link href="https://justinelapura.vercel.app/">
+            <Image
+              src={profile}
+              alt="profile image"
+              className="w-8 sm:w-10 rounded-full cursor-pointer hover:scale-105 duration-300"
+            />
+          </Link>
+          <h1 className="font-bold text-gray-700 text-xs sm:text-sm">Justine Lapura</h1>
         </div>
-        <ul className="font-semibold text-gray-800 space-y-4 mt-8">
+        <ul className="font-semibold text-gray-800 space-y-4 mt-12">
           <li className="cursor-pointer hover:animate-pulse">Collections</li>
           <li className="cursor-pointer hover:animate-pulse">Men</li>
           <li className="cursor-pointer hover:animate-pulse">Women</li>
@@ -181,10 +188,10 @@ const Navbar = ({
 
       {/* added to cart modal  */}
       {hasOrdered && (
-          <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/70 top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">
-            Order Successful
-          </div>
-        )}
+        <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/70 top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">
+          Order Successful
+        </div>
+      )}
     </>
   );
 };
