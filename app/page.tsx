@@ -30,7 +30,7 @@ interface Slide {
 }
 
 export default function Home() {
-  const [itemCount, setItemCount] = useState<number>(0);
+  const [itemCount, setItemCount] = useState<number>(1);
   const [cartItemCount, setCartItemCount] = useState<number>(0);
   const [cartBadgeCount, setCartBadgeCount] = useState<number>(0);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
@@ -42,9 +42,9 @@ export default function Home() {
   const addToCart = () => {
     setCartBadgeCount((prevCount) => prevCount + 1);
 
-    if (itemCount !== 0) {
+    if (itemCount !== 1) {
       setCartItemCount((prevCount) => (prevCount += itemCount));
-      setItemCount(0);
+      setItemCount(1);
     } else {
       setCartItemCount((prevCount) => prevCount + 1);
     }
@@ -61,7 +61,7 @@ export default function Home() {
   };
 
   const minusCount = () => {
-    if (itemCount !== 0) {
+    if (itemCount !== 1) {
       setItemCount((prevCount) => prevCount - 1);
     }
   };
