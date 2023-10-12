@@ -9,6 +9,7 @@ import Image, { StaticImageData } from "next/image";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
@@ -53,7 +54,7 @@ export default function Home() {
     // Set addedToCart to false after 2 seconds
     setTimeout(() => {
       setAddedToCart(false);
-    }, 2000); // 2000 milliseconds = 2 seconds
+    }, 1000); // 2000 milliseconds = 2 seconds
   };
 
   const addCount = () => {
@@ -88,7 +89,12 @@ export default function Home() {
       {/* Container */}
       <div className="w-full h-full min-h-screen max-w-[1000px] mx-auto">
         {/* Navbar  */}
-        <Navbar cartItemCount={cartItemCount} cartBadgeCount={cartBadgeCount} setCartBadgeCount={setCartBadgeCount} setCartItemCount={setCartItemCount} />
+        <Navbar
+          cartItemCount={cartItemCount}
+          cartBadgeCount={cartBadgeCount}
+          setCartBadgeCount={setCartBadgeCount}
+          setCartItemCount={setCartItemCount}
+        />
 
         {/* Content  */}
         <div className="w-full h-full lg:flex justify-center items-center gap-20 pt-16 md:py-32">
@@ -152,8 +158,8 @@ export default function Home() {
                 $250.00
               </p>
             </div>
-            <div className="lg:flex items-center gap-6">
-              <div className="w-full flex justify-between items-center mt-8 lg:mt-4 text-orange-600 text-2xl font-bold rounded-xl bg-gray-100 py-4 lg:py-2 px-6">
+            <div className="w-full lg:flex items-center gap-6">
+              <div className="w-full md:w-2/5 flex justify-between items-center mt-8 lg:mt-4 text-orange-600 text-2xl font-bold rounded-xl bg-gray-100 py-4 lg:py-2 px-6">
                 <p
                   onClick={minusCount}
                   className="hover:scale-125 duration-200 cursor-pointer"
@@ -170,7 +176,7 @@ export default function Home() {
               </div>
               <button
                 onClick={addToCart}
-                className="w-full flex justify-center items-center gap-4 py-4 lg:py-2 mt-4 rounded-xl bg-orange-500 text-white font-bold hover:scale-105 duration-200 active:bg-orange-600"
+                className="w-full md:w-3/5 flex justify-center items-center gap-4 py-4 lg:py-2 mt-4 rounded-xl bg-orange-500 text-white font-bold hover:scale-105 duration-200 active:bg-orange-600"
               >
                 <AiOutlineShoppingCart size={20} /> Add to cart
               </button>
@@ -216,11 +222,14 @@ export default function Home() {
         </div>
 
         {/* added to cart modal  */}
-        {addedToCart && (
-          <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl">
-            item has been added
-          </div>
-        )}
+        <AnimatePresence>
+          {addedToCart && (
+            <motion.div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl"
+            exit={{ opacity: 0 }}>
+              item has been added
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </main>
   );

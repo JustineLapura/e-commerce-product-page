@@ -8,6 +8,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NavbarProps {
   cartItemCount: number;
@@ -30,13 +31,13 @@ const Navbar = ({
     setCartBadgeCount(0);
     setCartItemCount(0);
     setHasOrdered(true);
-    // Set HassetHasOrdered to false after 2 seconds
+    // Set HassetHasOrdered to false after 1 seconds
     setTimeout(() => {
       setHasOrdered(false);
-    }, 2000); // 2000 milliseconds = 2 seconds
+    }, 1000); // 1000 milliseconds = 1 seconds
   };
 
-  console.log(hasOrdered);
+  // console.log(hasOrdered);
 
   const openCartModal = () => {
     setCartModal(true);
@@ -86,7 +87,7 @@ const Navbar = ({
               {cartBadgeCount > 0 ? cartItemCount : ""}
             </div>
             {cartModal && (
-              <div className="fixed w-[95%] sm:w-[70%] md:w-[400px] min-h-[300px] h-[47%] top-[220px] lg:top-[228px] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border">
+              <div className="fixed w-[95%] sm:w-[70%] md:w-[400px] min-h-[200px] h-[47%] top-[220px] lg:top-[228px] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border">
                 <div
                   onClick={closeCartModal}
                   className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-300 hover:text-white cursor-pointer transform duration-300 "
@@ -175,7 +176,9 @@ const Navbar = ({
               className="w-8 sm:w-10 rounded-full cursor-pointer hover:scale-105 duration-300"
             />
           </Link>
-          <h1 className="font-bold text-gray-700 text-xs sm:text-sm">Justine Lapura</h1>
+          <h1 className="font-bold text-gray-700 text-xs sm:text-sm">
+            Justine Lapura
+          </h1>
         </div>
         <ul className="font-semibold text-gray-800 space-y-4 mt-12">
           <li className="cursor-pointer hover:animate-pulse">Collections</li>
@@ -187,11 +190,16 @@ const Navbar = ({
       </div>
 
       {/* added to cart modal  */}
-      {hasOrdered && (
-        <div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/70 top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">
-          Order Successful
-        </div>
-      )}
+      <AnimatePresence>
+        {hasOrdered && (
+          <motion.div
+            className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/70 top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50"
+            exit={{ opacity: 0 }}
+          >
+            Order Successful
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
