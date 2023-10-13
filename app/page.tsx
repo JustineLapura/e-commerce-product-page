@@ -38,7 +38,7 @@ export default function Home() {
   const [curentIndex, setCurrentindex] = useState<number>(0);
   const [slidesModalOpen, setSlidesModalOpen] = useState<boolean>(false);
 
-  // console.log(cartItemCount)
+  console.log(itemCount);
 
   const addToCart = () => {
     setCartBadgeCount((prevCount) => prevCount + 1);
@@ -224,8 +224,10 @@ export default function Home() {
         {/* added to cart modal  */}
         <AnimatePresence>
           {addedToCart && (
-            <motion.div className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl"
-            exit={{ opacity: 0 }}>
+            <motion.div
+              className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl"
+              exit={{ opacity: 0 }}
+            >
               item has been added
             </motion.div>
           )}
