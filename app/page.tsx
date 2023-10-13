@@ -37,12 +37,8 @@ export default function Home() {
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [curentIndex, setCurrentindex] = useState<number>(0);
   const [slidesModalOpen, setSlidesModalOpen] = useState<boolean>(false);
-  const [cartAlertCount, setCartAlertCount] = useState<number>(1)
 
-  // let cartAlertCount = 1
-  console.log(cartAlertCount)
-
-  // console.log(itemCount);
+  console.log(itemCount);
 
   const addToCart = () => {
     setCartBadgeCount((prevCount) => prevCount + 1);
@@ -59,23 +55,15 @@ export default function Home() {
     setTimeout(() => {
       setAddedToCart(false);
     }, 1000); // 2000 milliseconds = 2 seconds
-
-    // Set CartAlertCount to 1 
-    setTimeout(() => {
-      setCartAlertCount(1)
-    }, 1000)
   };
 
   const addCount = () => {
     setItemCount((prevCount) => prevCount + 1);
-    setCartAlertCount(prevCount => prevCount + 1)
   };
 
   const minusCount = () => {
     if (itemCount !== 1) {
       setItemCount((prevCount) => prevCount - 1);
-      setCartAlertCount(prevCount => prevCount - 1)
-
     }
   };
 
@@ -240,7 +228,7 @@ export default function Home() {
               className="fixed h-20 w-[300px] flex justify-center items-center text-white text-xl font-semibold bg-black/60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl"
               exit={{ opacity: 0 }}
             >
-              {cartAlertCount > 1 ? `${cartAlertCount} items has been added` : "item has been added"}
+              item has been added
             </motion.div>
           )}
         </AnimatePresence>
