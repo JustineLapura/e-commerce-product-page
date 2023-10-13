@@ -89,7 +89,7 @@ const Navbar = ({
             <AnimatePresence>
               {cartModal && (
                 <motion.div
-                  className="fixed w-[95%] sm:w-[70%] md:w-[400px] min-h-[200px] h-[47%] top-[220px] lg:top-[228px] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border"
+                  className="fixed w-[95%] sm:w-[70%] md:w-[400px] min-h-[300px] h-[47%] top-[220px] lg:top-[228px] left-1/2 md:left-3/4 bg-white rounded-xl transform -translate-x-1/2 -translate-y-1/2 shadow-2xl border"
                   exit={{ opacity: 0 }}
                 >
                   <div
