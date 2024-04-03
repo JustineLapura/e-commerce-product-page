@@ -190,7 +190,8 @@ const Navbar = ({
           <li className="cursor-pointer hover:animate-pulse">Men</li>
           <li className="cursor-pointer hover:animate-pulse">Women</li>
           <li className="cursor-pointer hover:animate-pulse">About</li>
-          <li className="cursor-pointer hover:animate-pulse">Contact</li>
+          <li className="cursor-pointer hover:animate-pulse">ajshdvahjdv</li>
+          <li className="cursor-pointer hover:animate-pulse">Login</li>
         </ul>
       </div>
 
